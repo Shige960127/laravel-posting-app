@@ -18,18 +18,24 @@
         <article>
             <div>
                 <h1>新規投稿</h1>
+                @if ($errors -> any())
                 <div>
-                    <a href="{{route('posts.index')}}">&lt; 戻る</a>
+                    <ul>
+                        @foreach ($errors -> all() as $error) 
+                        <li>{{$error}}</li>
+                        @endforeach
+                    </ul>
                 </div>
+                @endif
                 <form action="{{route('posts.store')}}" method="post">
                     @csrf
                     <div>
                         <label for="title">タイトル</label>
-                        <input type="text" name="title">
+                        <input type="text" name="title" value="{{old('title')}}">
                     </div>
                     <div>
                         <label for="content">本文</label>
-                        <textarea name="content"></textarea>
+                        <textarea name="content">{{old('content')}}</textarea>
                     </div>
                     <button type="submit">投稿</button>
                 </form>
